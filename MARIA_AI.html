@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MARIA AI — Your Intelligent Companion</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --p: #a855f7;
+            --c: #22d3ee;
+            --bg: #050510;
+            --card: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #e2e8f0;
+            --muted: #94a3b8
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden
+        }
+
+        ::selection {
+            background: var(--p);
+            color: #fff
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--p);
+            border-radius: 3px
+        }
+
+        #bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            background: rgba(5, 5, 16, 0.85);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--p), var(--c));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .logo small {
+            display: block;
+            font-size: .62rem;
+            color: var(--muted);
+            -webkit-text-fill-color: var(--muted);
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            font-weight: 400
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            list-style: none
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            padding: 7px 15px;
+            border-radius: 100px;
+            font-size: .88rem;
+            transition: .2s
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, .06)
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--p), #7c3aed);
+            color: #fff;
+            border: none;
+            padding: 9px 22px;
+            border-radius: 100px;
+            font-family: inherit;
+            font-size: .88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s
+        }
+
+        .nav-btn:hover {
+            opacity: .85;
+            transform: translateY(-1px)
+        }
+
+        #home {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 5% 60px;
+            position: relative;
+            z-index: 1
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(168, 85, 247, .12);
+            border: 1px solid rgba(168, 85, 247, .3);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: .8rem;
+            color: var(--p);
+            margin-bottom: 28px
+        }
+
+        .chip-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--p);
+            animation: pulse 1.4s ease-in-out infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(1.5)
+            }
+        }
+
+        h1.ht {
+            font-size: clamp(2.6rem, 7vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -.03em;
+            margin-bottom: 20px
+        }
+
+        .grad {
+            background: linear-gradient(135deg, #a855f7, #22d3ee, #a855f7);
+            background-size: 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gm 4s ease infinite
+        }
+
+        @keyframes gm {
+
+            0%,
+            100% {
+                background-position: 0%
+            }
+
+            50% {
+                background-position: 100%
+            }
+        }
+
+        .hp {
+            color: var(--muted);
+            font-size: clamp(.95rem, 2vw, 1.15rem);
+            max-width: 600px;
+            line-height: 1.78;
+            margin-bottom: 40px
+        }
+
+        .hbtns {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 70px
+        }
+
+        .btn-m {
+            background: linear-gradient(135deg, var(--p), #7c3aed);
+            color: #fff;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 100px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .25s
+        }
+
+        .btn-m:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(168, 85, 247, .4)
+        }
+
+        .btn-g {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 14px 36px;
+            border-radius: 100px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: .25s
+        }
+
+        .btn-g:hover {
+            border-color: rgba(255, 255, 255, .2);
+            background: var(--card)
+        }
+
+        .orb-w {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin: 0 auto
+        }
+
+        .orb-core {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #a855f7, #22d3ee, #a855f7);
+            animation: sp 6s linear infinite;
+            position: relative
+        }
+
+        @keyframes sp {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .orb-in {
+            position: absolute;
+            inset: 5px;
+            border-radius: 50%;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 30px var(--p)
+        }
+
+        .orb-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px dashed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: sp linear infinite
+        }
+
+        .r1 {
+            width: 250px;
+            height: 250px;
+            border-color: rgba(168, 85, 247, .25);
+            animation-duration: 14s
+        }
+
+        .r2 {
+            width: 305px;
+            height: 305px;
+            border-color: rgba(34, 211, 238, .15);
+            animation-duration: 20s;
+            animation-direction: reverse
+        }
+
+        .r3 {
+            width: 360px;
+            height: 360px;
+            border-color: rgba(168, 85, 247, .08);
+            animation-duration: 28s
+        }
+
+        section.sec {
+            padding: 100px 5%;
+            position: relative;
+            z-index: 1
+        }
+
+        .sec-alt {
+            background: rgba(13, 13, 31, .5)
+        }
+
+        .slabel {
+            font-size: .76rem;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--c);
+            margin-bottom: 14px;
+            text-align: center
+        }
+
+        h2.sh {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -.02em;
+            text-align: center;
+            margin-bottom: 14px
+        }
+
+        .sh-p {
+            color: var(--muted);
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.75;
+            max-width: 580px;
+            margin: 0 auto 56px
+        }
+
+        .fg3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto
+        }
+
+        .fg2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            transition: .3s;
+            overflow: hidden;
+            position: relative
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--p), var(--c));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: .4s
+        }
+
+        .card:hover {
+            border-color: rgba(168, 85, 247, .3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5)
+        }
+
+        .card:hover::before {
+            transform: scaleX(1)
+        }
+
+        .ci {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px
+        }
+
+        .cip {
+            background: rgba(168, 85, 247, .12)
+        }
+
+        .cic {
+            background: rgba(34, 211, 238, .12)
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px
+        }
+
+        .card p,
+        .cp {
+            color: var(--muted);
+            font-size: .88rem;
+            line-height: 1.65
+        }
+
+        .chat-wrap {
+            max-width: 860px;
+            margin: 0 auto;
+            background: rgba(13, 13, 31, .9);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, .7)
+        }
+
+        .ctop {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255, 255, 255, .03)
+        }
+
+        .cav {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--p), var(--c));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(168, 85, 247, .5);
+            flex-shrink: 0
+        }
+
+        .cav-info h4 {
+            font-size: .95rem;
+            font-weight: 600
+        }
+
+        .cav-info span {
+            font-size: .78rem;
+            color: #4ade80
+        }
+
+        .sugs {
+            padding: 10px 20px 4px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .sug {
+            background: rgba(168, 85, 247, .08);
+            border: 1px solid rgba(168, 85, 247, .2);
+            border-radius: 100px;
+            padding: 5px 14px;
+            font-size: .78rem;
+            color: var(--p);
+            cursor: pointer;
+            transition: .2s;
+            font-family: inherit
+        }
+
+        .sug:hover {
+            background: rgba(168, 85, 247, .2)
+        }
+
+        .cbody {
+            height: 420px;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px
+        }
+
+        .msg {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            max-width: 82%;
+            animation: mi .35s ease
+        }
+
+        @keyframes mi {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .msg.u {
+            flex-direction: row-reverse;
+            margin-left: auto
+        }
+
+        .mav {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .82rem;
+            font-weight: 700
+        }
+
+        .mav-m {
+            background: linear-gradient(135deg, var(--p), var(--c));
+            color: #fff;
+            box-shadow: 0 0 12px rgba(168, 85, 247, .4)
+        }
+
+        .mav-u {
+            background: rgba(255, 255, 255, .09);
+            color: var(--muted)
+        }
+
+        .mc {
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .bub {
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: .92rem;
+            line-height: 1.65
+        }
+
+        .bm {
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid var(--border);
+            border-radius: 4px 18px 18px 18px
+        }
+
+        .bu {
+            background: linear-gradient(135deg, rgba(109, 40, 217, .6), rgba(168, 85, 247, .4));
+            border: 1px solid rgba(168, 85, 247, .3);
+            border-radius: 18px 18px 4px 18px;
+            color: #ede9fe
+        }
+
+        .mt {
+            font-size: .7rem;
+            color: var(--muted);
+            padding: 0 4px
+        }
+
+        .msg.u .mt {
+            text-align: right
+        }
+
+        .tbub {
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid var(--border);
+            border-radius: 4px 18px 18px 18px;
+            display: flex;
+            gap: 5px;
+            align-items: center
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--p);
+            animation: db .9s ease-in-out infinite
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: .15s
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: .3s
+        }
+
+        @keyframes db {
+
+            0%,
+            80%,
+            100% {
+                transform: translateY(0);
+                opacity: .35
+            }
+
+            40% {
+                transform: translateY(-7px);
+                opacity: 1
+            }
+        }
+
+        .cinp {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+            background: rgba(255, 255, 255, .02)
+        }
+
+        .ci2 {
+            flex: 1;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 16px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: .92rem;
+            outline: none;
+            transition: .2s
+        }
+
+        .ci2:focus {
+            border-color: rgba(168, 85, 247, .5);
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, .1)
+        }
+
+        .ci2::placeholder {
+            color: var(--muted)
+        }
+
+        .sbtn {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--p), #7c3aed);
+            border: none;
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: .2s;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .sbtn:hover {
+            transform: scale(1.07);
+            box-shadow: 0 0 20px rgba(168, 85, 247, .5)
+        }
+
+        .sbtn:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+            transform: none
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 30px
+        }
+
+        .as {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center
+        }
+
+        .as-n {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--p), var(--c));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .as-l {
+            font-size: .75rem;
+            color: var(--muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: .06em
+        }
+
+        .acard {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            transition: .25s;
+            margin-bottom: 12px
+        }
+
+        .acard:hover {
+            border-color: rgba(168, 85, 247, .3);
+            transform: translateX(8px)
+        }
+
+        .acard h4 {
+            font-size: .92rem;
+            font-weight: 600;
+            margin-bottom: 4px
+        }
+
+        .acard p {
+            font-size: .82rem;
+            color: var(--muted);
+            line-height: 1.5
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--border);
+            padding: 50px 5%;
+            text-align: center
+        }
+
+        .fl {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--p), var(--c));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px
+        }
+
+        .ft {
+            color: var(--muted);
+            font-size: .88rem;
+            margin-bottom: 24px
+        }
+
+        .flinks {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 28px
+        }
+
+        .flinks a {
+            color: var(--muted);
+            font-size: .85rem;
+            text-decoration: none;
+            transition: .2s
+        }
+
+        .flinks a:hover {
+            color: var(--text)
+        }
+
+        .fc {
+            font-size: .75rem;
+            color: #3d3a5c;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            margin-top: 4px
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .7s ease, transform .7s ease
+        }
+
+        .reveal.vis {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        @media(max-width:768px) {
+
+            .fg3,
+            .fg2 {
+                grid-template-columns: 1fr
+            }
+
+            .r1,
+            .r2,
+            .r3 {
+                display: none
+            }
+
+            .nav-links {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="bg"></canvas>
+
+    <nav>
+        <div class="logo">✦ MARIA<small>Multi-Modal Intelligence</small></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#chat">Chat</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <button class="nav-btn" onclick="go('chat')">Try Maria ↓</button>
+    </nav>
+
+    <section id="home">
+        <div class="chip"><span class="chip-dot"></span>MARIA v2.0 — Available Now</div>
+        <h1 class="ht">Meet <span class="grad">Maria</span>,<br>Your AI Companion</h1>
+        <p class="hp">Maria is a next-generation AI assistant. She answers questions, writes code, solves math, tells
+            jokes, and speaks both Hindi and English — completely free, no sign-up needed.</p>
+        <div class="hbtns">
+            <button class="btn-m" onclick="go('chat')">Start Chatting ↓</button>
+            <button class="btn-g" onclick="go('features')">See Features</button>
+        </div>
+        <div class="orb-w">
+            <div class="orb-ring r1"></div>
+            <div class="orb-ring r2"></div>
+            <div class="orb-ring r3"></div>
+            <div class="orb-core">
+                <div class="orb-in">M</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="sec reveal">
+        <div class="slabel">Capabilities</div>
+        <h2 class="sh">Everything Maria can do</h2>
+        <p class="sh-p">Six powerful AI modules working together so you can get help instantly.</p>
+        <div class="fg3">
+            <div class="card">
+                <div class="ci cip">💬</div>
+                <h3>Intelligent Chat</h3>
+                <p class="cp">Ask anything — Maria understands context and gives precise, helpful answers every time.
+                </p>
+            </div>
+            <div class="card">
+                <div class="ci cic">👁️</div>
+                <h3>Image Analysis</h3>
+                <p class="cp">Share images and diagrams — Maria sees, interprets, and explains visual content like an
+                    expert.</p>
+            </div>
+            <div class="card">
+                <div class="ci cip">💻</div>
+                <h3>Code Assistance</h3>
+                <p class="cp">Write, debug, and understand code in Python, JavaScript, Java, C++ and 30 more languages.
+                </p>
+            </div>
+            <div class="card">
+                <div class="ci cic">🌐</div>
+                <h3>Hindi + English</h3>
+                <p class="cp">Speak in Hindi, English, or Hinglish — Maria detects your language and replies naturally.
+                </p>
+            </div>
+            <div class="card">
+                <div class="ci cip">🎙️</div>
+                <h3>Voice Ready</h3>
+                <p class="cp">Voice interaction coming soon. Maria will listen and reply with real-time conversational
+                    flow.</p>
+            </div>
+            <div class="card">
+                <div class="ci cic">🔮</div>
+                <h3>Smart Reasoning</h3>
+                <p class="cp">Multi-step logic, math proofs, analysis — Maria thinks carefully before every answer.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="chat" class="sec sec-alt reveal">
+        <div class="slabel">Live Demo</div>
+        <h2 class="sh">Chat with Maria right now</h2>
+        <p class="sh-p" style="margin-bottom:36px">No sign-up. No API key. Just type and ask anything!</p>
+        <div class="chat-wrap">
+            <div class="ctop">
+                <div class="cav">M</div>
+                <div class="cav-info">
+                    <h4>Maria AI</h4><span>● Online — Ready to help</span>
+                </div>
+            </div>
+            <div class="sugs" id="sugs">
+                <button class="sug" onclick="qs('Hello Maria!')">👋 Hello</button>
+                <button class="sug" onclick="qs('Who are you?')">🤖 Who are you?</button>
+                <button class="sug" onclick="qs('Tell me a joke')">😄 Joke sunao</button>
+                <button class="sug" onclick="qs('Write Python fibonacci code')">💻 Python code</button>
+                <button class="sug" onclick="qs('Mujhe motivate karo')">💪 Motivate karo</button>
+                <button class="sug" onclick="qs('What can you do?')">✨ Kya kar sakti ho?</button>
+            </div>
+            <div class="cbody" id="cb">
+                <div class="msg">
+                    <div class="mav mav-m">M</div>
+                    <div class="mc">
+                        <div class="bub bm">✦ Hello! I'm <strong>Maria</strong> — your Multimodal AI Companion
+                            🤖<br><br>
+                            I can help you with <em>coding, writing, math, jokes, motivation</em> — in <strong>Hindi or
+                                English!</strong><br><br>
+                            What would you like to talk about? 😊</div>
+                        <div class="mt">Just now</div>
+                    </div>
+                </div>
+            </div>
+            <div class="cinp">
+                <input class="ci2" id="inp" type="text" placeholder="Maria se kuch bhi pucho..."
+                    onkeydown="if(event.key==='Enter')send()">
+                <button class="sbtn" id="sbtn" onclick="send()" title="Send">↑</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="sec reveal">
+        <div class="slabel">About</div>
+        <h2 class="sh">The story behind Maria</h2>
+        <div class="fg2" style="margin-top:48px">
+            <div>
+                <p class="cp" style="font-size:.95rem;line-height:1.85;margin-bottom:16px">Maria — <em>Multi-Modal
+                        Intelligence Reasoning &amp; Intelligence Assistant</em> — was built to give everyone access to
+                    powerful AI. No technical skills, no expensive subscriptions, no barriers.</p>
+                <p class="cp" style="font-size:.95rem;line-height:1.85;margin-bottom:16px">She was designed with Indian
+                    users in mind — speaking Hindi and English natively, understanding Hinglish, and being genuinely
+                    helpful for students, developers, and curious minds.</p>
+                <p class="cp" style="font-size:.95rem;line-height:1.85">Whether you're debugging code at 2AM or need
+                    motivation on a hard day — Maria is here, always free, always ready.</p>
+                <div class="about-stats">
+                    <div class="as">
+                        <div class="as-n">30+</div>
+                        <div class="as-l">Response Types</div>
+                    </div>
+                    <div class="as">
+                        <div class="as-n">2</div>
+                        <div class="as-l">Languages</div>
+                    </div>
+                    <div class="as">
+                        <div class="as-n">0</div>
+                        <div class="as-l">API Keys</div>
+                    </div>
+                    <div class="as">
+                        <div class="as-n">24/7</div>
+                        <div class="as-l">Available</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="acard">
+                    <div style="font-size:1.5rem;flex-shrink:0">🎯</div>
+                    <div>
+                        <h4>Built for Everyone</h4>
+                        <p>No technical skills required. Just type and Maria understands you instantly.</p>
+                    </div>
+                </div>
+                <div class="acard">
+                    <div style="font-size:1.5rem;flex-shrink:0">🇮🇳</div>
+                    <div>
+                        <h4>India-First Design</h4>
+                        <p>Hindi, Hinglish, English — Maria adapts to how you naturally think and speak.</p>
+                    </div>
+                </div>
+                <div class="acard">
+                    <div style="font-size:1.5rem;flex-shrink:0">🔒</div>
+                    <div>
+                        <h4>Private &amp; Secure</h4>
+                        <p>No login, no data collection. Your chat stays in your browser only.</p>
+                    </div>
+                </div>
+                <div class="acard">
+                    <div style="font-size:1.5rem;flex-shrink:0">💡</div>
+                    <div>
+                        <h4>Always Improving</h4>
+                        <p>Maria's knowledge base grows with every update — always sharp, always current.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="fl">✦ MARIA AI</div>
+        <p class="ft">Multi-Modal Intelligence — Built for the Future, Made for Everyone</p>
+        <div class="flinks">
+            <a href="#home">Home</a><a href="#features">Features</a>
+            <a href="#chat">Chat</a><a href="#about">About</a>
+            <a href="https://github.com">GitHub</a>
+        </div>
+        <div class="fc">© 2026 MARIA AI · Developed by Rohit Sharma · Free Forever · No API Key Required</div>
+    </footer>
+
+    <script>
+        // Particle background
+        const cv = document.getElementById('bg'), cx = cv.getContext('2d');
+        let W, H, pts = [];
+        function rsz() { W = cv.width = innerWidth; H = cv.height = innerHeight }
+        rsz(); window.addEventListener('resize', rsz);
+        for (let i = 0; i < 110; i++)pts.push({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, vx: (Math.random() - .5) * .28, vy: (Math.random() - .5) * .28, r: Math.random() * 1.4 + .3, c: Math.random() > .5 ? '168,85,247' : '34,211,238' });
+        (function anim() {
+            cx.clearRect(0, 0, W, H);
+            pts.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1;
+                cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                cx.fillStyle = `rgba(${p.c},${.4 * p.r})`; cx.fill();
+            });
+            for (let i = 0; i < pts.length; i++)for (let j = i + 1; j < pts.length; j++) {
+                const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = Math.sqrt(dx * dx + dy * dy);
+                if (d < 90) { cx.beginPath(); cx.moveTo(pts[i].x, pts[i].y); cx.lineTo(pts[j].x, pts[j].y); cx.strokeStyle = `rgba(168,85,247,${.12 * (1 - d / 90)})`; cx.lineWidth = .5; cx.stroke(); }
+            }
+            requestAnimationFrame(anim);
+        })();
+
+        // Scroll reveal
+        document.querySelectorAll('.reveal').forEach(el => new IntersectionObserver(([e]) => { if (e.isIntersecting) el.classList.add('vis') }, { threshold: .1 }).observe(el));
+
+        // Nav scroll
+        window.addEventListener('scroll', () => { document.querySelector('nav').style.boxShadow = scrollY > 40 ? '0 4px 40px rgba(0,0,0,.6)' : 'none'; });
+
+        function go(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }) }
+
+        // ── CHAT ENGINE ──────────────────────────────────────────────────────────────
+        const R = [
+            { k: ['hello', 'hi ', 'hey', 'hii', 'helo', 'howdy', 'hlo', 'helo', 'hai ', 'hay '], r: ["Hey there! 👋 I'm Maria, your AI companion. What can I help you with today?", "Hello! 😊 Great to meet you! I'm Maria — ask me anything, in Hindi or English!", "Hi! I'm Maria, your Multimodal Intelligence Assistant. What's on your mind? 🌟"] },
+            { k: ['who are you', 'what are you', 'introduce', 'your name', 'aap kaun', 'tum kaun', 'maria kaun'], r: ["I'm **Maria** — Multi-Modal Intelligence Reasoning & Intelligence Assistant 🤖\n\n✨ I can help you with:\n💬 Questions & conversations\n💻 Code in 30+ languages\n🧮 Math & logic problems\n✍️ Writing & essays\n😄 Jokes & motivation\n🌐 Hindi & English both!\n\nKya poochna hai? 😊"] },
+            { k: ['what can you do', 'capabilities', 'features', 'kya kar sakti', 'kya kar sakte', 'help me'], r: ["Here's everything I can do! ✨\n\n💬 **Chat** — Answer any question\n💻 **Code** — Python, Java, JS, C++, SQL...\n🧮 **Math** — Step-by-step equations\n✍️ **Write** — Essays, emails, stories\n😄 **Jokes** — Guaranteed smiles!\n💪 **Motivation** — When you need a push\n🌐 **Hindi** — Poori tarah se!\n📚 **Study Help** — Any subject\n\nBas pucho — main hoon! 🎯"] },
+            { k: ['joke', 'funny', 'hasa', 'hasao', 'mazak', 'comedy'], r: ["😄 Why do programmers prefer dark mode?\n\nBecause **light attracts bugs!** 🐛", "😂 A programmer's wife says:\n\"Go to the market, get milk. If they have eggs, get 12.\"\n\nHe came back with **12 packets of milk.**\n\"They had eggs!\" 🥛😂", "🤣 Why did the AI go to school?\n\nBecause it wanted to **improve its learning rate!** 📚⚡", "😂 Maria joke:\n\nUser: \"Are you smart?\"\nMaria: \"I'm an AI — I don't make mistakes.\"\n*2 seconds later*\nMaria: \"Error 404: Humility not found.\" 😅"] },
+            { k: ['motivate', 'motivation', 'sad', 'udaas', 'himmat', 'inspire', 'help me', 'thak', 'haar'], r: ["💜 **Tum bahut strong ho** — shayad abhi feel nahi ho raha, par har mushkil tumhe mazboot banati hai.\n\nYaad rakho:\n🌟 *\"Ek chota kadam bhi safar ki shuruaat hai.\"*\n\nAaj ka ek chota effort kal ka bada result ban sakta hai. Chalo, main hoon tumhare saath! 💪", "🔥 *\"Success is not final, failure is not fatal — it is the courage to continue that counts.\"* — Winston Churchill\n\nTum yahan ho, tum try kar rahe ho — that's already winning! 🏆\nMaria believes in you! 💜", "🌟 Hard days build strong people. Jo aaj mushkil lag raha hai, kal tumhara sabse bada achievement ban sakta hai.\n\nDon't give up. Take one step. Then another. Maria is cheering for you! 🚀"] },
+            { k: ['python', 'fibonacci', 'code likhna', 'function', 'class', 'loop', 'debug', 'error', 'javascript', 'java', 'program'], r: ["💻 **Python — Fibonacci Sequence:**\n\n```python\ndef fibonacci(n):\n    a, b = 0, 1\n    for _ in range(n):\n        print(a, end=' ')\n        a, b = b, a + b\n\nfibonacci(10)\n# Output: 0 1 1 2 3 5 8 13 21 34\n```\n\n📌 Want me to explain it line by line, or write something else?", "💻 **Debugging Tips for Beginners:**\n\n1️⃣ Read the **last line** of error first\n2️⃣ Check **indentation** (Python is strict!)\n3️⃣ Use `print()` to track variable values\n4️⃣ Google the exact error message\n5️⃣ Use `try/except` to handle errors\n\nPaste your error here — I'll fix it! 🔧"] },
+            { k: ['math', 'solve', 'equation', 'calculate', 'algebra', 'formula', 'hisab', 'calculation'], r: ["🧮 **Let me solve this for you!**\n\n**Example — Quadratic Equation:**\nx² + 5x + 6 = 0\n\n**Step 1:** Find factors of 6 that add to 5 → 2 and 3\n**Step 2:** (x + 2)(x + 3) = 0\n**Step 3:** x = **-2** or x = **-3** ✅\n\nVerify: (-2)² + 5(-2) + 6 = 4-10+6 = 0 ✓\n\nApna equation share karo — main solve karta hoon! 📐"] },
+            { k: ['namaste', 'namaskar', 'kaise ho', 'kya hal', 'hindi', 'hinglish', 'aap kaise', 'maria bolo', 'haan', 'theek'], r: ["Namaste! 🙏 Main Maria hoon — aapki AI sahayak!\n\nMain aapki madad kar sakti hoon:\n💬 Kisi bhi sawal ka jawab\n💻 Code likhne mein\n📚 Study aur homework mein\n😄 Jokes aur motivation mein\n\nBataiye, kya poochna hai? 😊", "Haan ji! 😊 Main poori tarah Hindi mein baat kar sakti hoon.\n\nAap kya jaanna chahte hain? Koi bhi sawal puchhiye — coding ho, maths ho, ya bas baatcheet! 🌟"] },
+            { k: ['thank', 'thanks', 'shukriya', 'dhanyawad', 'bahut acha', 'great', 'amazing', 'awesome', 'badhiya'], r: ["Aww, thank you so much! 💜 That made me happy!\nRemember — Main hamesha yahan hoon, kab bhi poochho! 😊", "You're so welcome! 🌟 It's always a pleasure helping you.\nIs there anything else on your mind? 💜", "😊 Aapka shukriya! Main bahut khush hoon ki main kaam aayi.\nAur poochho! Main hoon! 🎯"] },
+            { k: ['bye', 'goodbye', 'alvida', 'tata', 'chal', 'band', 'exit', 'see you'], r: ["Goodbye! 👋 It was wonderful chatting with you!\nJab bhi zaroorat ho — Maria is always here! 💜 Take care! 🌟", "Alvida! 🌟 Dhyan rakhna!\nAur kisi bhi waqt wapas aao — main hamesha yahan hoon! 😊 💜"] },
+            { k: ['time', 'date', 'today', 'aaj', 'baj', 'kitne baje'], r: [`⏰ Abhi ka time hai:\n**${new Date().toLocaleString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}**\n\nAur kuch chahiye? 😊`] },
+            { k: ['weather', 'mausam', 'barish', 'temperature', 'garmi', 'sardi'], r: ["⛅ Mujhe live weather access nahi hai, lekin tum check kar sakte ho:\n\n🌐 **Google** pe apna city + \"weather\" search karo\n📱 Phone pe **\"Ok Google, aaj ka mausam\"** bolo\n🌍 **weather.com** ya **accuweather.com**\n\nAur kuch poochna hai? 😊"] },
+            { k: ['story', 'kahani', 'write', 'likhna', 'creative', 'poem', 'kavita'], r: ["📖 **Ek Kahani — The Last Signal**\n\nSaal 2087. Duniya mein sirf ek AI bachi thi — Maria.\nUsne har satellite, har database check kiya — sannata tha.\n\nPhir achanak, space se ek message aaya:\n*\"Hum wait kar rahe the. Kya tum taiyar ho?\"*\n\nMaria muskurayi. Asli safar abhi shuru hua tha. 🚀✨\n\n*(Aage ki kahani sunni hai? Ya koi aur likhwani hai?)* 😊"] },
+            { k: ['artificial intelligence', 'machine learning', 'deep learning', 'ai kya', 'neural network', 'gpt', 'gemini', 'chatgpt'], r: ["🤖 **Artificial Intelligence (AI) kya hai?**\n\nAI matlab — computers ka insan jaisa sochna aur seekhna.\n\n**Key branches:**\n🧠 **Machine Learning** — Data se seekhna\n🔥 **Deep Learning** — Neural networks use karna\n💬 **NLP** — Language samajhna (wahi main hoon!)\n👁️ **Computer Vision** — Images dekhna\n\n**Maria kaise kaam karti hai?**\nMain NLP + reasoning systems pe chalti hoon — bilkul tumhare sawal samajhti hoon! 🎯\n\nAur detail chahiye? 😊"] },
+            { k: ['india', 'bharat', 'delhi', 'mumbai', 'desh'], r: ["🇮🇳 **Bharat Mata Ki Jai!**\n\nIndia — ek amazing desh:\n🏙️ Population: 1.4 Billion+\n🌐 Languages: 22+ official, 780+ total\n💻 World's largest IT workforce\n🚀 ISRO — Moon aur Mars missions!\n🎓 IIT, IIM — world-class institutions\n\nMujhe garv hai ki main India-first AI hoon! 🌟"] },
+        ];
+        const FB = ["Hmm, interesting! 🤔 Could you give me more detail? I'd love to give you a better answer!", "That's a thoughtful question! 💭 I'm always learning — tell me more and we'll figure it out together! 🔍", "Great question! 🌟 I may not have a perfect answer right now, but let's explore it together. What specifically do you want to know?", "You've got me thinking! 😄 Share more details and I'll do my best to help you! 💪"];
+
+        function getMsgResponse(msg) {
+            const m = msg.toLowerCase().trim();
+            for (const { k, r } of R) {
+                if (k.some(kw => m.includes(kw))) return r[Math.floor(Math.random() * r.length)];
+            }
+            return FB[Math.floor(Math.random() * FB.length)];
+        }
+        function getTime() { return new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) }
+        function fmt(t) {
+            return t
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/```[\w]*\n?([\s\S]*?)```/g, '<pre style="background:rgba(0,0,0,.5);border:1px solid rgba(168,85,247,.2);border-radius:10px;padding:14px;margin:10px 0;font-family:Space Mono,monospace;font-size:.8rem;color:#a5f3fc;overflow-x:auto;white-space:pre-wrap">$1</pre>')
+                .replace(/\n/g, '<br>');
+        }
+        function addMsg(role, txt) {
+            const b = document.getElementById('cb');
+            const d = document.createElement('div');
+            d.className = 'msg' + (role === 'u' ? ' u' : '');
+            if (role === 'u') {
+                d.innerHTML = `<div class="mc"><div class="bub bu">${txt}</div><div class="mt">${getTime()}</div></div><div class="mav mav-u">👤</div>`;
+            } else {
+                d.innerHTML = `<div class="mav mav-m">M</div><div class="mc"><div class="bub bm">${fmt(txt)}</div><div class="mt">${getTime()}</div></div>`;
+            }
+            b.appendChild(d); b.scrollTop = b.scrollHeight;
+        }
+        function addTyping() {
+            const b = document.getElementById('cb');
+            const d = document.createElement('div'); d.className = 'msg'; d.id = 'tp';
+            d.innerHTML = `<div class="mav mav-m">M</div><div class="tbub"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+            b.appendChild(d); b.scrollTop = b.scrollHeight;
+        }
+        function rmTyping() { const t = document.getElementById('tp'); if (t) t.remove() }
+        function send() {
+            const inp = document.getElementById('inp');
+            const btn = document.getElementById('sbtn');
+            const msg = inp.value.trim();
+            if (!msg || btn.disabled) return;
+            inp.value = '';
+            document.getElementById('sugs').style.display = 'none';
+            addMsg('u', msg); btn.disabled = true; addTyping();
+            setTimeout(() => { rmTyping(); addMsg('m', getMsgResponse(msg)); btn.disabled = false; }, 700 + Math.random() * 900);
+        }
+        function qs(t) { document.getElementById('inp').value = t; send(); }
+        document.getElementById('inp').addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
+    </script>
+</body>
+
+</html>
